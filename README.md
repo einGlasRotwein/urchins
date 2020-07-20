@@ -1,5 +1,2 @@
 # urchins
-Project work.
-
-## Subheading
-This is a test for GitHub.
+Project work for Neuromatch Academy.
