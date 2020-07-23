@@ -11,13 +11,20 @@ data %>%
   group_by(contrast_diff_abs, condition) %>% 
   count()
 
+# Were no-gos in equal contrast trials punished?
+data %>% 
+  filter(condition == "go", response == 0, contrast_diff == 0) %>% 
+  summarise(all_feedback = mean(feedback_type))
+
 # Look at reaction times for correct vs. incorrect no_go trials
 data %>% 
   filter(condition == "no_go") %>% 
   mutate(feedback_type_rec = ifelse(feedback_type == 1, "reward", "punishment")) %>% 
   
-  ggplot(aes(x = feedback_type_rec, y = response_time)) +
-  geom_jitter(colour = "darkgreen", alpha = .3, size = 2)
+  ggplot(aes(x = feedback_type_rec, y = response_time_diff)) +
+  geom_jitter(colour = "darkgreen", alpha = .3, size = 2) +
+  scale_y_continuous(breaks = seq(0, 2, .25)) +
+  labs(y = "response time from go cue", x = "feedback")
 
 data %>% 
   filter(condition == "go", contrast_diff == 0) %>% 
