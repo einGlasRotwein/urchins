@@ -67,3 +67,93 @@ weird_RTs %>%
 data %>% 
   filter(mouse == "Forssmann") %>% 
   summarise(sessions = unique(session), mouse = unique(mouse))
+
+# Go back to no-go plot: Are the reaction times in the punishment condition that are too long
+# all because of Forssmann?
+data %>% 
+  filter(condition == "no_go") %>% 
+  mutate(Forssmann = ifelse(mouse == "Forssmann", TRUE, FALSE)) %>% 
+  
+  ggplot(aes(x = feedback_type_rec, y = response_time_diff, colour = Forssmann)) +
+  geom_jitter(alpha = .5, size = 2) +
+  scale_y_continuous(breaks = seq(0, 2, .25)) +
+  labs(y = "response time from go cue", x = "feedback") +
+  theme(legend.position = "top")
+
+# And for go trials:
+data %>% 
+  filter(condition == "go") %>% 
+  mutate(Forssmann = ifelse(mouse == "Forssmann", TRUE, FALSE),
+         nogo = ifelse(response_rec == "no go", TRUE, FALSE)) %>% 
+  
+  ggplot(aes(x = feedback_type_rec, y = response_time_diff, colour = Forssmann,
+             shape = nogo)) +
+  geom_jitter(alpha = .4, size = 3) +
+  scale_y_continuous(breaks = seq(0, 2, .25)) +
+  labs(y = "response time from go cue", x = "feedback") +
+  theme(legend.position = "top")
+
+data %>% 
+  group_by(condition) %>% 
+  count()
+
+# Exclude Forssmann from now on.
+# Mutate responses into no go and other.
+data_wof <- data %>% 
+  filter(mouse != "Forssmann") %>%
+  mutate(response_rec2 = ifelse(response_rec == "no go", "no go", "other"))
+
+data_wof %>% 
+  filter(condition == "go") %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = response_time_diff, colour = feedback_type_rec)) +
+  geom_jitter(alpha = .3) +
+  stat_summary(aes(fill = feedback_type_rec), size = 1, shape = 21, colour = "black") +
+  theme(legend.position = "top") +
+  facet_wrap(~response_rec2)
+
+# Performance as a function of absolute contrast difference
+data_wof %>% 
+  filter(condition == "go") %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = feedback_type, colour = response_rec2)) +
+  stat_summary(size = 1) +
+  theme(legend.position = "top")
+
+data_wof %>%
+  filter(condition == "go") %>% 
+  group_by(response_rec2, feedback_type_rec, contrast_diff_abs) %>% 
+  count() %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = n, fill = response_rec2)) +
+  geom_col() +
+  theme(legend.position = "top") +
+  facet_wrap(~feedback_type_rec)
+
+data_wof_go <- data_wof %>%
+  filter(condition == "go") %>% 
+  mutate(response_type = case_when(feedback_type_rec == "reward" ~ "correct",
+                                   feedback_type_rec == "punishment" & response_rec2 == "no go" ~ "no go",
+                                   feedback_type_rec == "punishment" & response_rec2 == "other" ~ "wrong"),
+         response_type = factor(response_type, levels = c("no go", "wrong", "correct")))
+
+data_wof_go %>% 
+  group_by(response_type, contrast_diff_abs) %>% 
+  count() %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = n, fill = response_type)) +
+  geom_col() +
+  scale_fill_manual(values = c("darkgrey", "darkred", "darkgreen")) +
+  theme(legend.position = "top")
+
+data_wof_go %>% 
+  group_by(response_type, contrast_diff_abs) %>% 
+  count() %>% 
+  group_by(contrast_diff_abs) %>% 
+  mutate(percentage = n/sum(n)) %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = percentage, fill = response_type)) +
+  geom_col() +
+  scale_fill_manual(values = c("darkgrey", "darkred", "darkgreen")) +
+  theme(legend.position = "top")
+
