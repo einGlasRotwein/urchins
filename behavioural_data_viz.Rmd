@@ -197,3 +197,19 @@ data_wof %>%
   my_theme
 ```
 
+## Performance
+
+We want to look at the performance during go trials as a function of absolute contrast difference. That is, we want to see how often the mice got it correct or wrong and how often they made a no-go response. We need to take into account that there were different numbers of trials per contrast difference, so the data are shown as raw counts and as percentages.
+
+```{r response_type}
+# Have only the go trials.
+# Recode the feedback type and the response type so we have one column that codes whether the mice made the correct
+# choice, the wrong choice or a no-go response.
+data_wof_go <- data_wof %>%
+  filter(condition == "go") %>% 
+  mutate(response_type = case_when(feedback_type_rec == "reward" ~ "correct",
+                                   feedback_type_rec == "punishment" & response_rec2 == "no go" ~ "no go",
+                                   feedback_type_rec == "punishment" & response_rec2 == "other" ~ "wrong"),
+         response_type = factor(response_type, levels = c("no go", "wrong", "correct")))
+```
+
