@@ -37,7 +37,6 @@ data <- data %>%
          response_rec2 = ifelse(response_rec == "no go", "no go", "other"))
 ```
 
-
 ## The Forssmann Situation
 
 Response times for no go trials show a weird pattern. Usually, any response time > 1.5 s should be correct (reward), anything below should be incorrect (punishment).
@@ -138,6 +137,33 @@ data %>%
 # data without Forssmann
 data_wof <- data %>% 
   filter(mouse != "Forssmann")
+```
+
+## The Lederberg Situation
+
+Lederberg had a very different neural response from the others, which is why we excluded him from the analysis. However, we briefly want to look at his behavioural data, since he seems to be a very smart mouse. Here are his response times, as compared to the other mice.
+
+```{r}
+data_wof %>% 
+  filter(condition == "go") %>% 
+  mutate(Lederberg = ifelse(mouse == "Lederberg", "Lederberg", "other mice")) %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = response_time_diff, colour = feedback_type_rec)) +
+  geom_jitter(alpha = .4) +
+  stat_summary(aes(fill = feedback_type_rec), size = 1, shape = 21, colour = "black") +
+  theme(legend.position = "top") +
+  facet_wrap(Lederberg~response_rec2) +
+  scale_colour_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  scale_fill_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  labs(title = "Go trial response times", subtitle = "by correct response and contrast difference",
+       y = "response time from go cue", x = "absolute contrast difference") +
+  my_theme
+```
+
+```{r bye_lederberg}
+# Anyways. Goodbye, Lederberg.
+data <- data %>% 
+  filter(mouse != "Lederberg")
 ```
 
 ## General stuff
