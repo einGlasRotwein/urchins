@@ -4,7 +4,7 @@ output: html_document
 ---
 
 ```{r setup, include = FALSE, echo = FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
 library(kableExtra)
@@ -42,7 +42,7 @@ data <- data %>%
 
 Response times for no go trials show a weird pattern. Usually, any response time > 1.5 s should be correct (reward), anything below should be incorrect (punishment).
 
-```{r}
+```{r no_go}
 data %>% 
   filter(condition == "no_go") %>% 
   
@@ -57,7 +57,7 @@ data %>%
 
 The same strange pattern occurs for no-go responses in go trials.
 
-```{r}
+```{r go}
 data %>% 
   filter(condition == "go") %>% 
   
@@ -65,7 +65,7 @@ data %>%
   geom_jitter(alpha = .4, size = 2) +
   geom_hline(aes(yintercept = 1.5), colour = "black", size = 1.5, linetype = "dashed") +
   scale_y_continuous(breaks = seq(0, 2, .25)) +
-  scale_colour_manual("response", values = c("darkblue", "darkgrey", "darkred")) +
+  scale_colour_manual("response", values = c("lightblue3", "darkgrey", "darkred")) +
   labs(title = "Go trials", subtitle = "punished vs. rewarded",
        y = "response time from go cue", x = "feedback") +
   my_theme
@@ -73,7 +73,7 @@ data %>%
 
 We can find out where the two distinct populations of no-go response times are coming from by figuring out when which type (low is < 1.7 s; high is > 1.7 s) occurs when.
 
-```{r}
+```{r weird_rts}
 weird_RTs <- data %>% 
   filter(response_rec == "no go") %>% 
   mutate(response_time_split = ifelse(response_time_diff > 1.7, "high", "low"))
@@ -81,7 +81,7 @@ weird_RTs <- data %>%
 
 Turns out, no-go responses > 1.7 s are associated with one mouse, Forssmann.
 
-```{r}
+```{r weird_rts_mouse}
 weird_RTs %>% 
   group_by(response_time_split, mouse) %>%
   count() %>% 
@@ -91,7 +91,7 @@ weird_RTs %>%
 
 The weird response times occur in sessions 4, 5, 6 and 7, which are all Forssmann's sessions.
 
-```{r}
+```{r weird_rts_session}
 weird_RTs %>% 
   group_by(response_time_split, session) %>%
   count() %>% 
@@ -102,7 +102,7 @@ weird_RTs %>%
 
 Indeed, Forssmann is the culprit. We take him out from now on, since his timing will be messed up.
 
-```{r}
+```{r no_go_forssmann}
 data %>% 
   filter(condition == "no_go") %>% 
   mutate(Forssmann = ifelse(mouse == "Forssmann", "Forssmann", "other mice")) %>% 
@@ -117,7 +117,7 @@ data %>%
   my_theme
 ```
 
-```{r}
+```{r go_forssmann}
 data %>% 
   filter(condition == "go") %>% 
   mutate(Forssmann = ifelse(mouse == "Forssmann", "Forssmann", "other mice")) %>% 
@@ -131,6 +131,69 @@ data %>%
   scale_shape_manual("", values = c(3, 16)) +
   labs(title = "Go trials", subtitle = "punished vs. rewarded",
        y = "response time from go cue", x = "feedback") +
+  my_theme
+```
+
+```{r exclude_forssmann}
+# data without Forssmann
+data_wof <- data %>% 
+  filter(mouse != "Forssmann")
+```
+
+## General stuff
+
+Different contrasts and conditions are not distributed evenly.
+
+```{r}
+data_wof %>% 
+  group_by(contrast_diff_abs, condition) %>% 
+  count() %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = n, fill = condition)) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(values = c("darkgreen", "darkgrey"), labels = c("go", "no go")) +
+  labs(title = "Number of trials", subtitle = "by condition and contrast difference",
+       y = "count", x = "absolute contrast difference") +
+  my_theme
+```
+
+## Response times
+
+We look at go trial response times first. For no-go responses (which are always wrong in a go trial), response times are of course always the same (1.5 s). For go responses that mice got correct, response times seem to get slightly shorter as the contrast difference increases (i.e. as trials get easier). For go responses that the mice got wrong (i.e. where they made a response, but chose the wrong side), response times seem to increase as the contrast difference increases. Thus, an error in an easy trial is likely to be slow, while it is faster in more difficult trials.
+
+```{r correct_response_counts}
+correct_response_counts <- data_wof %>% 
+  filter(condition == "go") %>%
+  group_by(feedback_type_rec, contrast_diff_abs, response_rec2) %>% 
+  count()
+
+easy_wrong <- correct_response_counts$n[correct_response_counts$contrast_diff_abs == 1 & 
+                                          correct_response_counts$response_rec2 == "other" &
+                                          correct_response_counts$feedback_type_rec == "punishment"]
+
+easy_nogo <- correct_response_counts$n[correct_response_counts$contrast_diff_abs == 1 & 
+                                          correct_response_counts$response_rec2 == "no go"]
+
+out_of_easy <- sum(correct_response_counts$n[correct_response_counts$contrast_diff_abs == 1])
+```
+
+Note, however, that the mice got only very few trials wrong (i.e. made a response in the wrong direction) when the absolute contrast difference was 1 (i.e. there was only one stimulus shown): `r easy_wrong` out of `r out_of_easy` trials with an absolute contrast of 1. Opposed to that, mice made `r easy_nogo` no-go responses out of `r out_of_easy` trials with an absolute contrast of 1. That means, response times for wrong choices are probably not that meaningful for those trials.
+
+Also note that there was no correct response for go trials with a contrast of 0. If the mouse made a go response, feedback was probabilistic. If the mouse made a no-go response, it was punished.
+
+```{r go_response_times}
+data_wof %>% 
+  filter(condition == "go") %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = response_time_diff, colour = feedback_type_rec)) +
+  geom_jitter(alpha = .4) +
+  stat_summary(aes(fill = feedback_type_rec), size = 1, shape = 21, colour = "black") +
+  theme(legend.position = "top") +
+  facet_wrap(~response_rec2) +
+  scale_colour_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  scale_fill_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  labs(title = "Go trial response times", subtitle = "by correct response and contrast difference",
+       y = "response time from go cue", x = "absolute contrast difference") +
   my_theme
 ```
 
