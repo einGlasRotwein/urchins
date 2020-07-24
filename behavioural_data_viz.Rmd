@@ -1,0 +1,240 @@
+---
+title: "Behavioural Data"
+output: html_document
+---
+
+```{r setup, include = FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(kableExtra)
+
+data <- read.csv("./data/behavioral_data.csv") # load data
+
+# plot theme
+my_theme <- theme(legend.position = "top", 
+                  plot.title = element_text(size = 16, hjust = 0.5),
+                  plot.subtitle = element_text(hjust = 0.5),
+                  axis.title = element_text(size = 14),
+                  axis.text = element_text(size = 12),
+                  axis.line = element_line(colour = "black"),
+                  legend.text = element_text(size = 12), 
+                  legend.title = element_text(size = 14),
+                  panel.background = element_blank(),
+                  panel.grid = element_line(colour = "light grey"),
+                  strip.text = element_text(size = 12))
+```
+
+```{r preprocessing}
+# Recode feedback type as string (-1; 1) -> (punishment; reward).
+# Recode response as string (-1; 0; 1) -> (right; no go; left).
+# Recode response again, but on a broader level: (-1; 1) -> other; 0 -> no go
+data <- data %>% 
+  mutate(feedback_type_rec = ifelse(feedback_type == 1, "reward", "punishment"),
+         response_rec = case_when(response == -1 ~ "right",
+                                  response == 1 ~ "left",
+                                  response == 0 ~ "no go"),
+         response_rec2 = ifelse(response_rec == "no go", "no go", "other"))
+```
+
+
+## The Forssmann Situation
+
+Response times for no go trials show a weird pattern. Usually, any response time > 1.5 s should be correct (reward), anything below should be incorrect (punishment).
+
+```{r no_go}
+data %>% 
+  filter(condition == "no_go") %>% 
+  
+  ggplot(aes(x = feedback_type_rec, y = response_time_diff)) +
+  geom_jitter(colour = "darkgreen", alpha = .3, size = 2) +
+  geom_hline(aes(yintercept = 1.5), colour = "black", size = 1.5, linetype = "dashed") +
+  scale_y_continuous(breaks = seq(0, 2, .25)) +
+  labs(title = "No-go trials", subtitle = "punished vs. rewarded",
+       y = "response time from go cue", x = "feedback") +
+  my_theme
+```
+
+The same strange pattern occurs for no-go responses in go trials.
+
+```{r go}
+data %>% 
+  filter(condition == "go") %>% 
+  
+  ggplot(aes(x = feedback_type_rec, y = response_time_diff, colour = response_rec)) +
+  geom_jitter(alpha = .4, size = 2) +
+  geom_hline(aes(yintercept = 1.5), colour = "black", size = 1.5, linetype = "dashed") +
+  scale_y_continuous(breaks = seq(0, 2, .25)) +
+  scale_colour_manual("response", values = c("lightblue3", "darkgrey", "darkred")) +
+  labs(title = "Go trials", subtitle = "punished vs. rewarded",
+       y = "response time from go cue", x = "feedback") +
+  my_theme
+```
+
+We can find out where the two distinct populations of no-go response times are coming from by figuring out when which type (low is < 1.7 s; high is > 1.7 s) occurs when.
+
+```{r weird_rts}
+weird_RTs <- data %>% 
+  filter(response_rec == "no go") %>% 
+  mutate(response_time_split = ifelse(response_time_diff > 1.7, "high", "low"))
+```
+
+Turns out, no-go responses > 1.7 s are associated with one mouse, Forssmann.
+
+```{r weird_rts_mouse}
+weird_RTs %>% 
+  group_by(response_time_split, mouse) %>%
+  count() %>% 
+  kable(col.names = c("response time", "mouse", "count")) %>% 
+  kable_styling("striped")
+```
+
+The weird response times occur in sessions 4, 5, 6 and 7, which are all Forssmann's sessions.
+
+```{r weird_rts_session}
+weird_RTs %>% 
+  group_by(response_time_split, session) %>%
+  count() %>% 
+  head() %>% # only show first 6 rows
+  kable(col.names = c("response time", "session", "count")) %>% 
+  kable_styling("striped")
+```
+
+Indeed, Forssmann is the culprit. We take him out from now on, since his timing will be messed up.
+
+```{r no_go_forssmann}
+data %>% 
+  filter(condition == "no_go") %>% 
+  mutate(Forssmann = ifelse(mouse == "Forssmann", "Forssmann", "other mice")) %>% 
+  
+  ggplot(aes(x = feedback_type_rec, y = response_time_diff, colour = Forssmann)) +
+  geom_jitter(alpha = .4, size = 2) +
+  geom_hline(aes(yintercept = 1.5), colour = "black", size = 1.5, linetype = "dashed") +
+  scale_y_continuous(breaks = seq(0, 2, .25)) +
+  scale_colour_manual("", values = c("darkred", "darkgreen")) +
+  labs(title = "No-go trials", subtitle = "punished vs. rewarded",
+       y = "response time from go cue", x = "feedback") +
+  my_theme
+```
+
+```{r go_forssmann}
+data %>% 
+  filter(condition == "go") %>% 
+  mutate(Forssmann = ifelse(mouse == "Forssmann", "Forssmann", "other mice")) %>% 
+  
+  ggplot(aes(x = feedback_type_rec, y = response_time_diff, colour = Forssmann,
+             shape = response_rec2)) +
+  geom_jitter(alpha = .4, size = 2) +
+  geom_hline(aes(yintercept = 1.5), colour = "black", size = 1.5, linetype = "dashed") +
+  scale_y_continuous(breaks = seq(0, 2, .25)) +
+  scale_colour_manual("", values = c("darkred", "darkgreen")) +
+  scale_shape_manual("", values = c(3, 16)) +
+  labs(title = "Go trials", subtitle = "punished vs. rewarded",
+       y = "response time from go cue", x = "feedback") +
+  my_theme
+```
+
+```{r exclude_forssmann}
+# data without Forssmann
+data_wof <- data %>% 
+  filter(mouse != "Forssmann")
+```
+
+## General stuff
+
+Different contrasts and conditions are not distributed evenly.
+
+```{r}
+data_wof %>% 
+  group_by(contrast_diff_abs, condition) %>% 
+  count() %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = n, fill = condition)) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(values = c("darkgreen", "darkgrey"), labels = c("go", "no go")) +
+  labs(title = "Number of trials", subtitle = "by condition and contrast difference",
+       y = "count", x = "absolute contrast difference") +
+  my_theme
+```
+
+## Response times
+
+We look at go trial response times first. For no-go responses (which are always wrong in a go trial), response times are of course always the same (1.5 s). For go responses that mice got correct, response times seem to get slightly shorter as the contrast difference increases (i.e. as trials get easier). For go responses that the mice got wrong (i.e. where they made a response, but chose the wrong side), response times seem to increase as the contrast difference increases. Thus, an error in an easy trial is likely to be slow, while it is faster in more difficult trials.
+
+```{r correct_response_counts}
+correct_response_counts <- data_wof %>% 
+  filter(condition == "go") %>%
+  group_by(feedback_type_rec, contrast_diff_abs, response_rec2) %>% 
+  count()
+
+easy_wrong <- correct_response_counts$n[correct_response_counts$contrast_diff_abs == 1 & 
+                                          correct_response_counts$response_rec2 == "other" &
+                                          correct_response_counts$feedback_type_rec == "punishment"]
+
+easy_nogo <- correct_response_counts$n[correct_response_counts$contrast_diff_abs == 1 & 
+                                         correct_response_counts$response_rec2 == "no go"]
+
+out_of_easy <- sum(correct_response_counts$n[correct_response_counts$contrast_diff_abs == 1])
+```
+
+Note, however, that the mice got only very few trials wrong (i.e. made a response in the wrong direction) when the absolute contrast difference was 1 (i.e. there was only one stimulus shown): `r easy_wrong` out of `r out_of_easy` trials with an absolute contrast of 1. Opposed to that, mice made `r easy_nogo` no-go responses out of `r out_of_easy` trials with an absolute contrast of 1. That means, response times for wrong choices are probably not that meaningful for those trials.
+
+Also note that there was no correct response for go trials with a contrast of 0. If the mouse made a go response, feedback was probabilistic. If the mouse made a no-go response, it was punished.
+
+```{r go_response_times}
+data_wof %>% 
+  filter(condition == "go") %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = response_time_diff, colour = feedback_type_rec)) +
+  geom_jitter(alpha = .4) +
+  stat_summary(aes(fill = feedback_type_rec), size = 1, shape = 21, colour = "black") +
+  theme(legend.position = "top") +
+  facet_wrap(~response_rec2) +
+  scale_colour_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  scale_fill_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  labs(title = "Go trial response times", subtitle = "by correct response and contrast difference",
+       y = "response time from go cue", x = "absolute contrast difference") +
+  my_theme
+```
+
+## Performance
+
+We want to look at the performance during go trials as a function of absolute contrast difference. That is, we want to see how often the mice got it correct or wrong and how often they made a no-go response. We need to take into account that there were different numbers of trials per contrast difference, so the data are shown as raw counts and as percentages.
+
+We can see that different contrast levels had unequal amounts of trials. We also see that feedback is probabilistic in trials where there is no correct response (i.e. 0 contrast difference trials), except for no-go responses, which are always counted as wrong responses (but are shown separately here). As the contrast difference decreases (i.e. as trials get easier), mice do not really make less errors overall, but those errors are more likely to be no-go responses than incorrect responses.
+
+```{r response_type}
+# Have only the go trials.
+# Recode the feedback type and the response type so we have one column that codes whether the mice made the correct
+# choice, the wrong choice or a no-go response.
+data_wof_go <- data_wof %>%
+  filter(condition == "go") %>% 
+  mutate(response_type = case_when(feedback_type_rec == "reward" ~ "correct",
+                                   response_rec2 == "no go" ~ "no go",
+                                   feedback_type_rec == "punishment" & response_rec2 == "other" ~ "wrong"),
+         response_type = factor(response_type, levels = c("no go", "wrong", "correct")))
+```
+
+```{r contrast_performance}
+contrast_performance <- data_wof_go %>% 
+  group_by(response_type, contrast_diff_abs) %>% 
+  count() %>% 
+  # calculate percentage per contrast difference
+  group_by(contrast_diff_abs) %>% 
+  mutate(percentage = n/sum(n)) %>% 
+  # transform into long format for plotting raw numbers and percentages as facets
+  pivot_longer(cols = c(n, percentage), names_to = "type") %>% 
+  mutate(type = ifelse(type == "n", "raw count", type))
+```
+
+```{r}
+contrast_performance %>% 
+  ggplot(aes(x = factor(contrast_diff_abs), y = value, fill = response_type)) +
+  geom_col() +
+  scale_fill_manual("response", values = c("darkgrey", "darkred", "darkgreen")) +
+  facet_wrap(~type, scales = "free") +
+  labs(title = "Performance", subtitle = "as a function of contrast difference",
+       y = "", x = "absolute contrast difference") +
+  my_theme
+```
+
