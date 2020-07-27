@@ -27,7 +27,12 @@ output:
 knitr::opts_chunk$set(echo = FALSE, error = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(kableExtra)
+library(lmerTest)
+library(broom.mixed)
+library(prmisc)
+
 data <- read.csv("../data/behavioral_data.csv") # load data
+
 # plot theme
 my_theme <- theme(legend.position = "top", 
                   plot.title = element_text(size = 16, hjust = 0.5),
