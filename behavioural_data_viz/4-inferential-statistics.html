@@ -98,7 +98,197 @@
 <div id="response-times-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Response times</h2>
 <p><img src="00_behavioural_data_files/figure-html/response_time_25_vs_75-1.png" width="672" /></p>
-<p>Obviously, response times are different for no-go responses. Also, a no-go response is always wrong. We hence set up a model for go trials where the mice did not make a no-go response with the following predictors: Contrast level (.25 or .75, coded as 0 and 1) and feedback (wrong or correct, coded as 0 and 1). We added a random intercept for each mouse.</p>
+<p>Obviously, response times are different for no-go responses. Also, a no-go response is always wrong. We hence set up a model for go trials where the mice did not make a no-go response with the following predictors: Contrast level (.25 or .75, coded as -.5 and .5) and feedback (wrong or correct, coded as -.5 and .5). We added a random intercept for each mouse.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+effect
+</th>
+<th style="text-align:left;">
+group
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:left;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.372
+</td>
+<td style="text-align:right;">
+0.020
+</td>
+<td style="text-align:right;">
+18.542
+</td>
+<td style="text-align:right;">
+10.762
+</td>
+<td style="text-align:left;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+contrast_diff_eff
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+<td style="text-align:right;">
+0.700
+</td>
+<td style="text-align:right;">
+1877.869
+</td>
+<td style="text-align:left;">
+.484
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+feedback_eff
+</td>
+<td style="text-align:right;">
+-0.132
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+<td style="text-align:right;">
+-7.083
+</td>
+<td style="text-align:right;">
+1875.357
+</td>
+<td style="text-align:left;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+contrast_diff_eff:feedback_eff
+</td>
+<td style="text-align:right;">
+-0.143
+</td>
+<td style="text-align:right;">
+0.037
+</td>
+<td style="text-align:right;">
+-3.818
+</td>
+<td style="text-align:right;">
+1875.817
+</td>
+<td style="text-align:left;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ran_pars
+</td>
+<td style="text-align:left;">
+mouse
+</td>
+<td style="text-align:left;">
+sd__(Intercept)
+</td>
+<td style="text-align:right;">
+0.052
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ran_pars
+</td>
+<td style="text-align:left;">
+Residual
+</td>
+<td style="text-align:left;">
+sd__Observation
+</td>
+<td style="text-align:right;">
+0.245
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p>It seems like overall (i.e. at the mean of correct and wrong responses), there is no effect of contrast difference. There is, however, an effect of feedback: Wrong responses are slower than correct ones (at the mean of a contrast difference .25 and .75). Lastly, there is a strong contrast x feedback interaction: Response times are slower for wrong responses, but only contrast difference of .75.</p>
+<p>We run a follow up-model to check for simple effects by changing the coding from -.5 and .5 to 0 and 1. Here, we can confirm that there is a difference between .25 and .75 for wrong responses (which are coded as 0 here). Furthermore, there is an effect of feedback (correct vs. wrong) at a contrast difference of .25 already.</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -287,7 +477,6 @@ NA
 </tr>
 </tbody>
 </table>
-<p>It seems like there is an effect of contrast: Response times for a contrast difference of .75 are slower than for a difference of .25. There also is an effect of feedback: Wrong responses are slower than correct ones. Lastly, there is a strong contrast x feedback interaction: Response times are slower for wrong responses, but mainly at a contrast difference of .75.</p>
 </div>
 </div>
             </section>

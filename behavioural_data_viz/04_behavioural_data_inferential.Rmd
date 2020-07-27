@@ -26,9 +26,30 @@ data_25_75 %>%
   my_theme
 ```
 
-Obviously, response times are different for no-go responses. Also, a no-go response is always wrong. We hence set up a model for go trials where the mice did not make a no-go response with the following predictors: Contrast level (.25 or .75, coded as 0 and 1) and feedback (wrong or correct, coded as 0 and 1). We added a random intercept for each mouse.
+Obviously, response times are different for no-go responses. Also, a no-go response is always wrong. We hence set up a model for go trials where the mice did not make a no-go response with the following predictors: Contrast level (.25 or .75, coded as -.5 and .5) and feedback (wrong or correct, coded as -.5 and .5). We added a random intercept for each mouse.
 
 ```{r mm_response_time}
+data_response_time <- data_25_75 %>% 
+  filter(response_rec2 == "other") %>% # filter out no-go responses
+  # Recode predictors for mixed model
+  mutate(contrast_diff_eff = ifelse(contrast_diff_abs == .25, -.5, .5),
+         feedback_eff = ifelse(feedback_type_rec == "punishment", -.5, .5))
+
+mm_response_time <- lmer(response_time_diff ~ contrast_diff_eff * feedback_eff + (1|mouse),
+                         data = data_response_time)
+
+tidy(mm_response_time) %>% 
+  mutate(p.value = gsub("\\$", "", format_p(p.value, numbers_only = TRUE))) %>% 
+  mutate_if(is.numeric, list(~round(., 3))) %>% 
+  kable() %>% 
+  kable_styling("striped")
+```
+
+It seems like overall (i.e. at the mean of correct and wrong responses), there is no effect of contrast difference. There is, however, an effect of feedback: Wrong responses are slower than correct ones (at the mean of a contrast difference .25 and .75). Lastly, there is a strong contrast x feedback interaction: Response times are slower for wrong responses, but only contrast difference of .75.
+
+We run a follow up-model to check for simple effects by changing the coding from -.5 and .5 to 0 and 1. Here, we can confirm that there is a difference between .25 and .75 for wrong responses (which are coded as 0 here). Furthermore, there is an effect of feedback (correct vs. wrong) at a contrast difference of .25 already.
+
+```{r mm_response_time_dummy}
 data_response_time <- data_25_75 %>% 
   filter(response_rec2 == "other") %>% # filter out no-go responses
   # Recode predictors for mixed model
@@ -44,5 +65,3 @@ tidy(mm_response_time) %>%
   kable() %>% 
   kable_styling("striped")
 ```
-
-It seems like there is an effect of contrast: Response times for a contrast difference of .75 are slower than for a difference of .25. There also is an effect of feedback: Wrong responses are slower than correct ones. Lastly, there is a strong contrast x feedback interaction: Response times are slower for wrong responses, but mainly at a contrast difference of .75.
