@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Behavioural Data</title>
-  <meta name="description" content="Behavioural Data" />
+  <title>4 Inferential statistics | Behavioural Data</title>
+  <meta name="description" content="4 Inferential statistics | Behavioural Data" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Behavioural Data" />
+  <meta property="og:title" content="4 Inferential statistics | Behavioural Data" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Behavioural Data" />
+  <meta name="twitter:title" content="4 Inferential statistics | Behavioural Data" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="3-general-stuff.html"/>
 
-<link rel="next" href="2-the-lederberg-situation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -92,240 +92,211 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Behavioural Data</h1>
-<h2 class="subtitle"><em>The Ultra Unamusing Urchins - Neuromatch Project</em></h2>
-</div>
-<div id="the-forssmann-situation" class="section level1">
-<h1><span class="header-section-number">1</span> The Forssmann Situation</h1>
-<p>Response times for no go trials show a weird pattern. Usually, any response time &gt; 1.5 s should be correct (reward), anything below should be incorrect (punishment).</p>
-<p><img src="00_behavioural_data_files/figure-html/no_go-1.png" width="672" /></p>
-<p>The same strange pattern occurs for no-go responses in go trials.</p>
-<p><img src="00_behavioural_data_files/figure-html/go-1.png" width="672" /></p>
-<p>We can find out where the two distinct populations of no-go response times are coming from by figuring out when which type (low is &lt; 1.7 s; high is &gt; 1.7 s) occurs when.</p>
-<p>Turns out, no-go responses &gt; 1.7 s are associated with one mouse, Forssmann.</p>
+<div id="inferential-statistics" class="section level1">
+<h1><span class="header-section-number">4</span> Inferential statistics</h1>
+<p>In our models, we focussed on a contrast difference of .25 vs. .75. This is because the 0 and 1 contrast difference conditions were different from the other contrast levels: At 0 contrast difference, there was no correct answer and feedback was probabilistic, making those trials hard to compare with the others. At a contrast difference of 1, there was only one stimulus presented, potentially changing the (visual) neural response, introducing a bias to our models which are based on spiking data. Hence, consistently with our models, we compared the behavioural data between a contrast difference of .25 vs. .75 only.</p>
+<div id="response-times-1" class="section level2">
+<h2><span class="header-section-number">4.1</span> Response times</h2>
+<p><img src="00_behavioural_data_files/figure-html/response_time_25_vs_75-1.png" width="672" /></p>
+<p>Obviously, response times are different for no-go responses. Also, a no-go response is always wrong. We hence set up a model for go trials where the mice did not make a no-go response with the following predictors: Contrast level (.25 or .75, coded as 0 and 1) and feedback (wrong or correct, coded as 0 and 1). We added a random intercept for each mouse.</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
-response time
+effect
 </th>
 <th style="text-align:left;">
+group
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:left;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.396
+</td>
+<td style="text-align:right;">
+0.028
+</td>
+<td style="text-align:right;">
+14.351
+</td>
+<td style="text-align:right;">
+38.318
+</td>
+<td style="text-align:left;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+contrast_diff_eff
+</td>
+<td style="text-align:right;">
+0.084
+</td>
+<td style="text-align:right;">
+0.035
+</td>
+<td style="text-align:right;">
+2.385
+</td>
+<td style="text-align:right;">
+1877.093
+</td>
+<td style="text-align:left;">
+.017
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+feedback_eff
+</td>
+<td style="text-align:right;">
+-0.061
+</td>
+<td style="text-align:right;">
+0.023
+</td>
+<td style="text-align:right;">
+-2.653
+</td>
+<td style="text-align:right;">
+1874.276
+</td>
+<td style="text-align:left;">
+.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+contrast_diff_eff:feedback_eff
+</td>
+<td style="text-align:right;">
+-0.143
+</td>
+<td style="text-align:right;">
+0.037
+</td>
+<td style="text-align:right;">
+-3.818
+</td>
+<td style="text-align:right;">
+1875.817
+</td>
+<td style="text-align:left;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ran_pars
+</td>
+<td style="text-align:left;">
 mouse
-</th>
-<th style="text-align:right;">
-count
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-high
 </td>
 <td style="text-align:left;">
-Forssmann
+sd__(Intercept)
 </td>
 <td style="text-align:right;">
-384
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Cori
+0.052
 </td>
 <td style="text-align:right;">
-245
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-low
+ran_pars
 </td>
 <td style="text-align:left;">
-Hench
+Residual
+</td>
+<td style="text-align:left;">
+sd__Observation
 </td>
 <td style="text-align:right;">
-479
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Lederberg
+0.245
 </td>
 <td style="text-align:right;">
-480
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Moniz
+NA
 </td>
 <td style="text-align:right;">
-262
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Muller
+NA
 </td>
 <td style="text-align:right;">
-263
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
+NA
 </td>
 <td style="text-align:left;">
-Radnitz
-</td>
-<td style="text-align:right;">
-334
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Richards
-</td>
-<td style="text-align:right;">
-440
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Tatum
-</td>
-<td style="text-align:right;">
-308
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Theiler
-</td>
-<td style="text-align:right;">
-110
+NA
 </td>
 </tr>
 </tbody>
 </table>
-<p>The weird response times occur in sessions 4, 5, 6 and 7, which are all Forssmann’s sessions.</p>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-response time
-</th>
-<th style="text-align:right;">
-session
-</th>
-<th style="text-align:right;">
-count
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-126
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-104
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-92
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-62
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-74
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-94
-</td>
-</tr>
-</tbody>
-</table>
-<p>Indeed, Forssmann is the culprit. We take him out from now on, since his timing will be messed up.</p>
-<p><img src="00_behavioural_data_files/figure-html/no_go_forssmann-1.png" width="672" /></p>
-<p><img src="00_behavioural_data_files/figure-html/go_forssmann-1.png" width="672" /></p>
+<p>It seems like there is an effect of contrast: Response times for a contrast difference of .75 are slower than for a difference of .25. There also is an effect of feedback: Wrong responses are slower than correct ones. Lastly, there is a strong contrast x feedback interaction: Response times are slower for wrong responses, but mainly at a contrast difference of .75.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="3-general-stuff.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="2-the-lederberg-situation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
