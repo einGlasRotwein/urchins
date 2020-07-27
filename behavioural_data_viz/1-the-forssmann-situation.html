@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Behavioural Data</title>
+  <meta name="description" content="Behavioural Data" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Behavioural Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Behavioural Data" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="2-the-lederberg-situation.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="1-the-forssmann-situation.html"><a href="1-the-forssmann-situation.html"><i class="fa fa-check"></i><b>1</b> The Forssmann Situation</a></li>
+<li class="chapter" data-level="2" data-path="2-the-lederberg-situation.html"><a href="2-the-lederberg-situation.html"><i class="fa fa-check"></i><b>2</b> The Lederberg Situation</a></li>
+<li class="chapter" data-level="3" data-path="3-general-stuff.html"><a href="3-general-stuff.html"><i class="fa fa-check"></i><b>3</b> General stuff</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-general-stuff.html"><a href="3-general-stuff.html#response-times"><i class="fa fa-check"></i><b>3.1</b> Response times</a></li>
+<li class="chapter" data-level="3.2" data-path="3-general-stuff.html"><a href="3-general-stuff.html#performance"><i class="fa fa-check"></i><b>3.2</b> Performance</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Behavioural Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Behavioural Data</h1>
+<h2 class="subtitle"><em>The Ultra Unamusing Urchins - Neuromatch Project</em></h2>
+</div>
+<div id="the-forssmann-situation" class="section level1">
+<h1><span class="header-section-number">1</span> The Forssmann Situation</h1>
+<p>Response times for no go trials show a weird pattern. Usually, any response time &gt; 1.5 s should be correct (reward), anything below should be incorrect (punishment).</p>
+<p><img src="00_behavioural_data_files/figure-html/no_go-1.png" width="672" /></p>
+<p>The same strange pattern occurs for no-go responses in go trials.</p>
+<p><img src="00_behavioural_data_files/figure-html/go-1.png" width="672" /></p>
+<p>We can find out where the two distinct populations of no-go response times are coming from by figuring out when which type (low is &lt; 1.7 s; high is &gt; 1.7 s) occurs when.</p>
+<p>Turns out, no-go responses &gt; 1.7 s are associated with one mouse, Forssmann.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+response time
+</th>
+<th style="text-align:left;">
+mouse
+</th>
+<th style="text-align:right;">
+count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+high
+</td>
+<td style="text-align:left;">
+Forssmann
+</td>
+<td style="text-align:right;">
+384
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Cori
+</td>
+<td style="text-align:right;">
+245
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Hench
+</td>
+<td style="text-align:right;">
+479
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Lederberg
+</td>
+<td style="text-align:right;">
+480
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Moniz
+</td>
+<td style="text-align:right;">
+262
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Muller
+</td>
+<td style="text-align:right;">
+263
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Radnitz
+</td>
+<td style="text-align:right;">
+334
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Richards
+</td>
+<td style="text-align:right;">
+440
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Tatum
+</td>
+<td style="text-align:right;">
+308
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:left;">
+Theiler
+</td>
+<td style="text-align:right;">
+110
+</td>
+</tr>
+</tbody>
+</table>
+<p>The weird response times occur in sessions 4, 5, 6 and 7, which are all Forssmann’s sessions.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+response time
+</th>
+<th style="text-align:right;">
+session
+</th>
+<th style="text-align:right;">
+count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+high
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+126
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+high
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+104
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+high
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+high
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+low
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+94
+</td>
+</tr>
+</tbody>
+</table>
+<p>Indeed, Forssmann is the culprit. We take him out from now on, since his timing will be messed up.</p>
+<p><img src="00_behavioural_data_files/figure-html/no_go_forssmann-1.png" width="672" /></p>
+<p><img src="00_behavioural_data_files/figure-html/go_forssmann-1.png" width="672" /></p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="2-the-lederberg-situation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": 3,
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+---
+title: "Behavioural Data"
+subtitle: "The Ultra Unamusing Urchins - Neuromatch Project"
+output: 
+  bookdown::gitbook:
+    toc_depth: 2
+    df_print: paged
+    split_by: chapter+number
+    config:
+      toc:
+        collapse: 3
+        scroll_highlight: yes
+        before: null
+        after: null
+      toolbar:
+        position: fixed
+      edit : null
+      download: null
+      search: yes
+      fontsettings:
+        theme: white
+        family: sans
+        size: 2
+---
+
+```{r setup, include = FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, error = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(kableExtra)
+data <- read.csv("../data/behavioral_data.csv") # load data
+# plot theme
+my_theme <- theme(legend.position = "top", 
+                  plot.title = element_text(size = 16, hjust = 0.5),
+                  plot.subtitle = element_text(hjust = 0.5),
+                  axis.title = element_text(size = 14),
+                  axis.text = element_text(size = 12),
+                  axis.line = element_line(colour = "black"),
+                  legend.text = element_text(size = 12), 
+                  legend.title = element_text(size = 14),
+                  panel.background = element_blank(),
+                  panel.grid = element_line(colour = "light grey"),
+                  strip.text = element_text(size = 12))
+```
+
+```{r preprocessing}
+# Recode feedback type as string (-1; 1) -> (punishment; reward).
+# Recode response as string (-1; 0; 1) -> (right; no go; left).
+# Recode response again, but on a broader level: (-1; 1) -> other; 0 -> no go
+data <- data %>% 
+  mutate(feedback_type_rec = ifelse(feedback_type == 1, "reward", "punishment"),
+         response_rec = case_when(response == -1 ~ "right",
+                                  response == 1 ~ "left",
+                                  response == 0 ~ "no go"),
+         response_rec2 = ifelse(response_rec == "no go", "no go", "other"))
+```
+
+```{r child = "01_behavioural_data_forssmann.Rmd", echo = FALSE}
+```

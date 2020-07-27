@@ -1,0 +1,70 @@
+
+# The Lederberg Situation
+
+Lederberg had a very different neural response from the others, which is why we excluded him from the analysis. However, we briefly want to look at his behavioural data, since he seems to be a very smart mouse. Here are his response times, as compared to the other mice. He seems to be consistently fast for correct responses. And doesn't seem to make any mistakes (except for no-go responses) at a contrast difference of one.
+
+```{r lederberg_response_time}
+data_wof %>% 
+  filter(condition == "go") %>% 
+  mutate(Lederberg = ifelse(mouse == "Lederberg", "Lederberg", "other mice")) %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = response_time_diff, colour = feedback_type_rec)) +
+  geom_jitter(alpha = .4) +
+  stat_summary(aes(fill = feedback_type_rec), size = 1, shape = 21, colour = "black") +
+  theme(legend.position = "top") +
+  facet_wrap(Lederberg~response_rec2) +
+  scale_colour_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  scale_fill_manual("feedback", values = c("darkred", "lightblue3"), labels = c("wrong", "correct")) +
+  labs(title = "Go trial response times", subtitle = "by correct response and contrast difference",
+       y = "response time from go cue", x = "absolute contrast difference") +
+  my_theme
+```
+
+We can also look at his performance (see a detailed description of the plot below). He makes less errors overall. If he makes errors, they are less likely to be no-go responses. He basically always goes for it :-) We may have excluded him, but we would like to honour the smartes mouse in the data set here.
+
+```{r lb_response_type, out.width = '100%'}
+# Have only the go trials.
+# Recode the feedback type and the response type so we have one column that codes whether the mice made the correct
+# choice, the wrong choice or a no-go response.
+data_wof_go <- data_wof %>%
+  filter(condition == "go") %>% 
+  mutate(response_type = case_when(feedback_type_rec == "reward" ~ "correct",
+                                   response_rec2 == "no go" ~ "no go",
+                                   feedback_type_rec == "punishment" & response_rec2 == "other" ~ "wrong"),
+         response_type = factor(response_type, levels = c("no go", "wrong", "correct")))
+```
+
+```{r lb_contrast_performance}
+contrast_performance <- data_wof_go %>% 
+  mutate(Lederberg = ifelse(mouse == "Lederberg", "Lederberg", "other mice")) %>% 
+  
+  group_by(Lederberg, response_type, contrast_diff_abs) %>% 
+  count() %>% 
+  # calculate percentage per contrast difference
+  group_by(Lederberg, contrast_diff_abs) %>% 
+  mutate(percentage = n/sum(n)) %>% 
+  # transform into long format for plotting raw numbers and percentages as facets
+  pivot_longer(cols = c(n, percentage), names_to = "type") %>% 
+  mutate(type = ifelse(type == "n", "raw count", type))
+```
+
+```{r lb_contrast_performance_vis, out.width = '100%'}
+contrast_performance %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = value, fill = response_type)) +
+  geom_col() +
+  scale_fill_manual("response", values = c("darkgrey", "darkred", "darkgreen")) +
+  facet_wrap(Lederberg~type, scales = "free") +
+  labs(title = "Performance", subtitle = "as a function of contrast difference",
+       y = "", x = "absolute contrast difference") +
+  my_theme
+```
+
+```{r bye_lederberg}
+# Anyways. Goodbye, Lederberg.
+data <- data %>% 
+  filter(mouse != "Lederberg")
+```
+
+```{r child = "03_behavioural_data_general.Rmd", echo = FALSE}
+```
