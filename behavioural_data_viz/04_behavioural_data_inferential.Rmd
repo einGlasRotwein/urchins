@@ -71,3 +71,46 @@ tidy(mm_response_time) %>%
   kable(align = c(rep("l", 2), rep("r", 5))) %>% 
   kable_styling("striped")
 ```
+
+## Performance
+Is the proportion of no-go vs. correct vs. incorrect responses different between the contrasts?
+
+```{r}
+# Table of trial counts for no-go, correct and incorrect by contrast
+response_table <- data_25_75 %>% 
+  mutate(response_type = case_when(response_rec2 == "no go" ~ "no go",
+                                   response_rec2 == "other" & feedback_type == 1 ~ "correct",
+                                   response_rec2 == "other" & feedback_type == -1 ~ "wrong")) %>% 
+  group_by(contrast_diff_abs, response_type) %>% 
+  count()
+
+response_table_wide <- response_table %>% 
+  pivot_wider(names_from = contrast_diff_abs, values_from = n, names_prefix = "contr_")
+
+response_table_wide %>% 
+  kable(col.names = c("response", "0.25", "0.75")) %>% 
+  kable_styling("striped")
+```
+
+```{r}
+# Chi square for proportions
+chisq_response <- chisq.test(response_table_wide[2:3])
+```
+
+The proportion of correct, no-go and wrong responses seems to be different between a contrast of .25 and .75, `r print_chi2(chisq_response)`. Descriptively, there is overall the same amount of errors for the higher contrast, but those are more likely to be no-go responses than wrong responses.
+
+```{r}
+response_table %>% 
+  group_by(contrast_diff_abs) %>% 
+  mutate(percent = n/sum(n)) %>% 
+  pivot_longer(cols = c(n, percent), names_to = "type", values_to = "value") %>% 
+  mutate(response_type = factor(response_type, levels = c("no go", "wrong", "correct"))) %>% 
+  
+  ggplot(aes(x = factor(contrast_diff_abs), y = value, fill = response_type)) +
+  geom_col() +
+  scale_fill_manual("response", values = c("darkgrey", "darkred", "darkgreen")) +
+  facet_wrap(~type, scales = "free") +
+  labs(title = "Performance", subtitle = "as a function of contrast difference",
+       y = "", x = "absolute contrast difference") +
+  my_theme
+```
