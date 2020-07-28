@@ -72,6 +72,9 @@ tidy(mm_response_time) %>%
   kable_styling("striped")
 ```
 
+### Relation to the drift diffusion model
+The drift diffusion model tells us that the drift rate is higher for the easier trials. At first, this doesn't seem to fit with the slower reaction times in the easy condition. However, it appears that if the drift rate varies across trials, it is not only possible that reaction times differ, but also that error reaction times are slower than correct reaction times. This is the case when e.g. accuracy is stressed in the task instructions [@ratcliff_2008]. In our case, this fits because the mice are really good at the task. They seem to be motivated to get it right, especially in the easier trials (because they know they can do it?). This is in line with the fact that there are less incorrect responses over time (but instead, more no-go responses).
+
 ## Performance
 Is the proportion of no-go vs. correct vs. incorrect responses different between the contrasts?
 
@@ -114,3 +117,5 @@ response_table %>%
        y = "", x = "absolute contrast difference") +
   my_theme
 ```
+
+## References
