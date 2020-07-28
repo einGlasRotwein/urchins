@@ -29,8 +29,6 @@ data_25_75 %>%
 Obviously, response times are different for no-go responses. Also, a no-go response is always wrong. We hence set up a model for go trials where the mice did not make a no-go response with the following predictors: Contrast level (.25 or .75, coded as -.5 and .5) and feedback (wrong or correct, coded as -.5 and .5). We added a random intercept for each mouse.
 
 ```{r mm_response_time}
-# TO DO: FIX THAT P-VALUES ARE CUT OFF!
-
 data_response_time <- data_25_75 %>% 
   filter(response_rec2 == "other") %>% # filter out no-go responses
   # Recode predictors for mixed model
@@ -118,4 +116,5 @@ response_table %>%
   my_theme
 ```
 
-## References
+```{r child = "04_behavioural_data_lederberg.Rmd", echo = FALSE}
+```

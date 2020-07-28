@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Inferential statistics | Behavioural Data</title>
+  <meta name="description" content="3 Inferential statistics | Behavioural Data" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Inferential statistics | Behavioural Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Inferential statistics | Behavioural Data" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="2-general-stuff.html"/>
+<link rel="next" href="4-the-lederberg-situation.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="1-the-forssmann-situation.html"><a href="1-the-forssmann-situation.html"><i class="fa fa-check"></i><b>1</b> The Forssmann Situation</a></li>
+<li class="chapter" data-level="2" data-path="2-general-stuff.html"><a href="2-general-stuff.html"><i class="fa fa-check"></i><b>2</b> General stuff</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-general-stuff.html"><a href="2-general-stuff.html#response-times"><i class="fa fa-check"></i><b>2.1</b> Response times</a></li>
+<li class="chapter" data-level="2.2" data-path="2-general-stuff.html"><a href="2-general-stuff.html#performance"><i class="fa fa-check"></i><b>2.2</b> Performance</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-inferential-statistics.html"><a href="3-inferential-statistics.html"><i class="fa fa-check"></i><b>3</b> Inferential statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-inferential-statistics.html"><a href="3-inferential-statistics.html#response-times-1"><i class="fa fa-check"></i><b>3.1</b> Response times</a></li>
+<li class="chapter" data-level="3.2" data-path="3-inferential-statistics.html"><a href="3-inferential-statistics.html#performance-1"><i class="fa fa-check"></i><b>3.2</b> Performance</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-the-lederberg-situation.html"><a href="4-the-lederberg-situation.html"><i class="fa fa-check"></i><b>4</b> The Lederberg Situation</a><ul>
+<li class="chapter" data-level="" data-path="4-the-lederberg-situation.html"><a href="4-the-lederberg-situation.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Behavioural Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inferential-statistics" class="section level1">
+<h1><span class="header-section-number">3</span> Inferential statistics</h1>
+<p>In our models, we focussed on a contrast difference of .25 vs. .75. This is because the 0 and 1 contrast difference conditions were different from the other contrast levels: At 0 contrast difference, there was no correct answer and feedback was probabilistic, making those trials hard to compare with the others. At a contrast difference of 1, there was only one stimulus presented, potentially changing the (visual) neural response, introducing a bias to our models which are based on spiking data. Hence, consistently with our models, we compared the behavioural data between a contrast difference of .25 vs. .75 only.</p>
+<div id="response-times-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Response times</h2>
+<p><img src="00_behavioural_data_files/figure-html/response_time_25_vs_75-1.png" width="672" /></p>
+<p>Obviously, response times are different for no-go responses. Also, a no-go response is always wrong. We hence set up a model for go trials where the mice did not make a no-go response with the following predictors: Contrast level (.25 or .75, coded as -.5 and .5) and feedback (wrong or correct, coded as -.5 and .5). We added a random intercept for each mouse.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+effect
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.372
+</td>
+<td style="text-align:right;">
+0.020
+</td>
+<td style="text-align:right;">
+18.542
+</td>
+<td style="text-align:right;">
+10.762
+</td>
+<td style="text-align:right;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+contrast_diff_eff
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+<td style="text-align:right;">
+0.700
+</td>
+<td style="text-align:right;">
+1877.869
+</td>
+<td style="text-align:right;">
+.484
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+feedback_eff
+</td>
+<td style="text-align:right;">
+-0.132
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+<td style="text-align:right;">
+-7.083
+</td>
+<td style="text-align:right;">
+1875.357
+</td>
+<td style="text-align:right;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+contrast_diff_eff:feedback_eff
+</td>
+<td style="text-align:right;">
+-0.143
+</td>
+<td style="text-align:right;">
+0.037
+</td>
+<td style="text-align:right;">
+-3.818
+</td>
+<td style="text-align:right;">
+1875.817
+</td>
+<td style="text-align:right;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ran_pars
+</td>
+<td style="text-align:left;">
+sd_mouse
+</td>
+<td style="text-align:right;">
+0.052
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ran_pars
+</td>
+<td style="text-align:left;">
+sd_Residual
+</td>
+<td style="text-align:right;">
+0.245
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p>It seems like overall (i.e. at the mean of correct and wrong responses), there is no effect of contrast difference. There is, however, an effect of feedback: Wrong responses are slower than correct ones (at the mean of a contrast difference .25 and .75). Lastly, there is a strong contrast x feedback interaction: Response times are slower for wrong responses, but only contrast difference of .75.</p>
+<p>We run a follow up-model to check for simple effects by changing the coding from -.5 and .5 to 0 and 1. Here, we can confirm that there is a difference between .25 and .75 for wrong responses (which are coded as 0 here). Furthermore, there is an effect of feedback (correct vs. wrong) at a contrast difference of .25 already.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+effect
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.396
+</td>
+<td style="text-align:right;">
+0.028
+</td>
+<td style="text-align:right;">
+14.351
+</td>
+<td style="text-align:right;">
+38.318
+</td>
+<td style="text-align:right;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+contrast_diff_eff
+</td>
+<td style="text-align:right;">
+0.084
+</td>
+<td style="text-align:right;">
+0.035
+</td>
+<td style="text-align:right;">
+2.385
+</td>
+<td style="text-align:right;">
+1877.093
+</td>
+<td style="text-align:right;">
+.017
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+feedback_eff
+</td>
+<td style="text-align:right;">
+-0.061
+</td>
+<td style="text-align:right;">
+0.023
+</td>
+<td style="text-align:right;">
+-2.653
+</td>
+<td style="text-align:right;">
+1874.276
+</td>
+<td style="text-align:right;">
+.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fixed
+</td>
+<td style="text-align:left;">
+contrast_diff_eff:feedback_eff
+</td>
+<td style="text-align:right;">
+-0.143
+</td>
+<td style="text-align:right;">
+0.037
+</td>
+<td style="text-align:right;">
+-3.818
+</td>
+<td style="text-align:right;">
+1875.817
+</td>
+<td style="text-align:right;">
+&lt; .001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ran_pars
+</td>
+<td style="text-align:left;">
+sd_mouse
+</td>
+<td style="text-align:right;">
+0.052
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ran_pars
+</td>
+<td style="text-align:left;">
+sd_Residual
+</td>
+<td style="text-align:right;">
+0.245
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<div id="relation-to-the-drift-diffusion-model" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Relation to the drift diffusion model</h3>
+<p>The drift diffusion model tells us that the drift rate is higher for the easier trials. At first, this doesn’t seem to fit with the slower reaction times in the easy condition. However, it appears that if the drift rate varies across trials, it is not only possible that reaction times differ, but also that error reaction times are slower than correct reaction times. This is the case when e.g. accuracy is stressed in the task instructions <span class="citation">(Ratcliff &amp; McKoon, 2008)</span>. In our case, this fits because the mice are really good at the task. They seem to be motivated to get it right, especially in the easier trials (because they know they can do it?). This is in line with the fact that there are less incorrect responses over time (but instead, more no-go responses).</p>
+</div>
+</div>
+<div id="performance-1" class="section level2">
+<h2><span class="header-section-number">3.2</span> Performance</h2>
+<p>Is the proportion of no-go vs. correct vs. incorrect responses different between the contrasts?</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+response
+</th>
+<th style="text-align:right;">
+0.25
+</th>
+<th style="text-align:right;">
+0.75
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+correct
+</td>
+<td style="text-align:right;">
+742
+</td>
+<td style="text-align:right;">
+930
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+no go
+</td>
+<td style="text-align:right;">
+244
+</td>
+<td style="text-align:right;">
+322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wrong
+</td>
+<td style="text-align:right;">
+135
+</td>
+<td style="text-align:right;">
+76
+</td>
+</tr>
+</tbody>
+</table>
+<p>The proportion of correct, no-go and wrong responses seems to be different between a contrast of .25 and .75, <span class="math inline">\(\chi^2(2) = 31.11\)</span>, <span class="math inline">\(p &lt; .001\)</span>. Descriptively, there is overall the same amount of errors for the higher contrast, but those are more likely to be no-go responses than wrong responses.</p>
+<p><img src="00_behavioural_data_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="2-general-stuff.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="4-the-lederberg-situation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": 3,
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

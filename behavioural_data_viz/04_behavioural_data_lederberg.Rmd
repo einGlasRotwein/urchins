@@ -1,7 +1,7 @@
 
 # The Lederberg Situation
 
-Lederberg had a very different neural response from the others, which is why we excluded him from the analysis. However, we briefly want to look at his behavioural data, since he seems to be a very smart mouse. Here are his response times, as compared to the other mice. He seems to be consistently fast for correct responses. And doesn't seem to make any mistakes (except for no-go responses) at a contrast difference of one.
+Lederberg had a very different neural response from the others, and his behaviour is quote special as well. He seems to be consistently fast for correct responses. And doesn't seem to make any mistakes (except for no-go responses) at a contrast difference of one. In this section, we honour the smartest mouse in the experiment.
 
 ```{r lederberg_response_time}
 data_wof %>% 
@@ -60,11 +60,4 @@ contrast_performance %>%
   my_theme
 ```
 
-```{r bye_lederberg}
-# Anyways. Goodbye, Lederberg.
-data <- data %>% 
-  filter(mouse != "Lederberg")
-```
-
-```{r child = "03_behavioural_data_general.Rmd", echo = FALSE}
-```
+## References

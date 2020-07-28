@@ -97,5 +97,5 @@ contrast_performance %>%
   my_theme
 ```
 
-```{r child = "04_behavioural_data_inferential.Rmd", echo = FALSE}
+```{r child = "03_behavioural_data_inferential.Rmd", echo = FALSE}
 ```

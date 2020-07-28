@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Behavioural Data</title>
-  <meta name="description" content="Behavioural Data" />
+  <title>4 The Lederberg Situation | Behavioural Data</title>
+  <meta name="description" content="4 The Lederberg Situation | Behavioural Data" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Behavioural Data" />
+  <meta property="og:title" content="4 The Lederberg Situation | Behavioural Data" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Behavioural Data" />
+  <meta name="twitter:title" content="4 The Lederberg Situation | Behavioural Data" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="3-inferential-statistics.html"/>
 
-<link rel="next" href="2-general-stuff.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -95,240 +95,28 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Behavioural Data</h1>
-<h2 class="subtitle"><em>The Ultra Unamusing Urchins - Neuromatch Project</em></h2>
+<div id="the-lederberg-situation" class="section level1">
+<h1><span class="header-section-number">4</span> The Lederberg Situation</h1>
+<p>Lederberg had a very different neural response from the others, and his behaviour is quote special as well. He seems to be consistently fast for correct responses. And doesn’t seem to make any mistakes (except for no-go responses) at a contrast difference of one. In this section, we honour the smartest mouse in the experiment.</p>
+<p><img src="00_behavioural_data_files/figure-html/lederberg_response_time-1.png" width="672" /></p>
+<p>We can also look at his performance (see a detailed description of the plot below). He makes less errors overall. If he makes errors, they are less likely to be no-go responses. He basically always goes for it :-) We may have excluded him, but we would like to honour the smartes mouse in the data set here.</p>
+<p><img src="00_behavioural_data_files/figure-html/lb_contrast_performance_vis-1.png" width="100%" /></p>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div>
+<p>Ratcliff, R., &amp; McKoon, G. (2008). The diffusion decision model: Theory and data for two-choice decision tasks. <em>Neural Computation</em>, <em>20</em>(4), 873–922. <a href="http://doi.org/10.1162/neco.2008.12-06-420">http://doi.org/10.1162/neco.2008.12-06-420</a></p>
 </div>
-<div id="the-forssmann-situation" class="section level1">
-<h1><span class="header-section-number">1</span> The Forssmann Situation</h1>
-<p>Response times for no go trials show a weird pattern. Usually, any response time &gt; 1.5 s should be correct (reward), anything below should be incorrect (punishment).</p>
-<p><img src="00_behavioural_data_files/figure-html/no_go-1.png" width="672" /></p>
-<p>The same strange pattern occurs for no-go responses in go trials.</p>
-<p><img src="00_behavioural_data_files/figure-html/go-1.png" width="672" /></p>
-<p>We can find out where the two distinct populations of no-go response times are coming from by figuring out when which type (low is &lt; 1.7 s; high is &gt; 1.7 s) occurs when.</p>
-<p>Turns out, no-go responses &gt; 1.7 s are associated with one mouse, Forssmann.</p>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-response time
-</th>
-<th style="text-align:left;">
-mouse
-</th>
-<th style="text-align:right;">
-count
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:left;">
-Forssmann
-</td>
-<td style="text-align:right;">
-384
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Cori
-</td>
-<td style="text-align:right;">
-245
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Hench
-</td>
-<td style="text-align:right;">
-479
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Lederberg
-</td>
-<td style="text-align:right;">
-480
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Moniz
-</td>
-<td style="text-align:right;">
-262
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Muller
-</td>
-<td style="text-align:right;">
-263
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Radnitz
-</td>
-<td style="text-align:right;">
-334
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Richards
-</td>
-<td style="text-align:right;">
-440
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Tatum
-</td>
-<td style="text-align:right;">
-308
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Theiler
-</td>
-<td style="text-align:right;">
-110
-</td>
-</tr>
-</tbody>
-</table>
-<p>The weird response times occur in sessions 4, 5, 6 and 7, which are all Forssmann’s sessions.</p>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-response time
-</th>
-<th style="text-align:right;">
-session
-</th>
-<th style="text-align:right;">
-count
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-126
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-104
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-92
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-62
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-74
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-94
-</td>
-</tr>
-</tbody>
-</table>
-<p>Indeed, Forssmann is the culprit. We take him out from now on, since his timing will be messed up.</p>
-<p><img src="00_behavioural_data_files/figure-html/no_go_forssmann-1.png" width="672" /></p>
-<p><img src="00_behavioural_data_files/figure-html/go_forssmann-1.png" width="672" /></p>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="3-inferential-statistics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="2-general-stuff.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

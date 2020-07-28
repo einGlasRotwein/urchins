@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Behavioural Data</title>
-  <meta name="description" content="Behavioural Data" />
+  <title>2 General stuff | Behavioural Data</title>
+  <meta name="description" content="2 General stuff | Behavioural Data" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Behavioural Data" />
+  <meta property="og:title" content="2 General stuff | Behavioural Data" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Behavioural Data" />
+  <meta name="twitter:title" content="2 General stuff | Behavioural Data" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="2-general-stuff.html"/>
+<link rel="prev" href="1-the-forssmann-situation.html"/>
+<link rel="next" href="3-inferential-statistics.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -95,240 +95,31 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Behavioural Data</h1>
-<h2 class="subtitle"><em>The Ultra Unamusing Urchins - Neuromatch Project</em></h2>
+<div id="general-stuff" class="section level1">
+<h1><span class="header-section-number">2</span> General stuff</h1>
+<p>Different contrasts and conditions are not distributed evenly.</p>
+<p><img src="00_behavioural_data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div id="response-times" class="section level2">
+<h2><span class="header-section-number">2.1</span> Response times</h2>
+<p>We look at go trial response times first. For no-go responses (which are always wrong in a go trial), response times are of course always the same (1.5 s). For go responses that mice got correct, response times seem to get slightly shorter as the contrast difference increases (i.e. as trials get easier). For go responses that the mice got wrong (i.e. where they made a response, but chose the wrong side), response times seem to increase as the contrast difference increases. Thus, an error in an easy trial is likely to be slow, while it is faster in more difficult trials.</p>
+<p>Note, however, that the mice got only very few trials wrong (i.e. made a response in the wrong direction) when the absolute contrast difference was 1 (i.e. there was only one stimulus shown): 33 out of 1778 trials with an absolute contrast of 1. Opposed to that, mice made 418 no-go responses out of 1778 trials with an absolute contrast of 1. That means, response times for wrong choices are probably not that meaningful for those trials.</p>
+<p>Also note that there was no correct response for go trials with a contrast of 0. If the mouse made a go response, feedback was probabilistic. If the mouse made a no-go response, it was punished.</p>
+<p><img src="00_behavioural_data_files/figure-html/go_response_times-1.png" width="672" /></p>
 </div>
-<div id="the-forssmann-situation" class="section level1">
-<h1><span class="header-section-number">1</span> The Forssmann Situation</h1>
-<p>Response times for no go trials show a weird pattern. Usually, any response time &gt; 1.5 s should be correct (reward), anything below should be incorrect (punishment).</p>
-<p><img src="00_behavioural_data_files/figure-html/no_go-1.png" width="672" /></p>
-<p>The same strange pattern occurs for no-go responses in go trials.</p>
-<p><img src="00_behavioural_data_files/figure-html/go-1.png" width="672" /></p>
-<p>We can find out where the two distinct populations of no-go response times are coming from by figuring out when which type (low is &lt; 1.7 s; high is &gt; 1.7 s) occurs when.</p>
-<p>Turns out, no-go responses &gt; 1.7 s are associated with one mouse, Forssmann.</p>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-response time
-</th>
-<th style="text-align:left;">
-mouse
-</th>
-<th style="text-align:right;">
-count
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:left;">
-Forssmann
-</td>
-<td style="text-align:right;">
-384
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Cori
-</td>
-<td style="text-align:right;">
-245
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Hench
-</td>
-<td style="text-align:right;">
-479
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Lederberg
-</td>
-<td style="text-align:right;">
-480
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Moniz
-</td>
-<td style="text-align:right;">
-262
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Muller
-</td>
-<td style="text-align:right;">
-263
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Radnitz
-</td>
-<td style="text-align:right;">
-334
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Richards
-</td>
-<td style="text-align:right;">
-440
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Tatum
-</td>
-<td style="text-align:right;">
-308
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:left;">
-Theiler
-</td>
-<td style="text-align:right;">
-110
-</td>
-</tr>
-</tbody>
-</table>
-<p>The weird response times occur in sessions 4, 5, 6 and 7, which are all Forssmann’s sessions.</p>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-response time
-</th>
-<th style="text-align:right;">
-session
-</th>
-<th style="text-align:right;">
-count
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-126
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-104
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-92
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-high
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-62
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-74
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-low
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-94
-</td>
-</tr>
-</tbody>
-</table>
-<p>Indeed, Forssmann is the culprit. We take him out from now on, since his timing will be messed up.</p>
-<p><img src="00_behavioural_data_files/figure-html/no_go_forssmann-1.png" width="672" /></p>
-<p><img src="00_behavioural_data_files/figure-html/go_forssmann-1.png" width="672" /></p>
+<div id="performance" class="section level2">
+<h2><span class="header-section-number">2.2</span> Performance</h2>
+<p>We want to look at the performance during go trials as a function of absolute contrast difference. That is, we want to see how often the mice got it correct or wrong and how often they made a no-go response. We need to take into account that there were different numbers of trials per contrast difference, so the data are shown as raw counts and as percentages.</p>
+<p>We can see that different contrast levels had unequal amounts of trials. We also see that feedback is probabilistic in trials where there is no correct response (i.e. 0 contrast difference trials), except for no-go responses, which are always counted as wrong responses (but are shown separately here). As the contrast difference decreases (i.e. as trials get easier), mice do not really make less errors overall, but those errors are more likely to be no-go responses than incorrect responses.</p>
+<p><img src="00_behavioural_data_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="2-general-stuff.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1-the-forssmann-situation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3-inferential-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

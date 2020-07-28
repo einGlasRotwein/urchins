@@ -101,5 +101,5 @@ data_wof <- data %>%
   filter(mouse != "Forssmann")
 ```
 
-```{r child = "02_behavioural_data_lederberg.Rmd", echo = FALSE}
+```{r child = "02_behavioural_data_general.Rmd", echo = FALSE}
 ```
